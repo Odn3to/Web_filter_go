@@ -17,12 +17,17 @@ func HandleRequests(){
 		AllowCredentials: true,
 	}))
 
-	r.POST("/new", controllers.CriaWebFilter)
-	r.GET("/apply", controllers.ApplyWebFilter)
-	r.GET("/search/:searchValue", controllers.PesquisaWebFilter)
-	r.GET("/search", controllers.PesquisaWebFilter)
-	r.PUT("/edit/:id", controllers.EditarWebFilter)
-	r.DELETE("/delete/:id", controllers.DeleteWebFilter)
+	authRoutes := r.Group("/")
+	authRoutes.Use(controllers.TokenValidationMiddleware)
+	{
+		authRoutes.POST("/new", controllers.CriaWebFilter)
+		authRoutes.GET("/apply", controllers.ApplyWebFilter)
+		authRoutes.GET("/status", controllers.GetStatusSquid)
+		authRoutes.GET("/search/:searchValue", controllers.PesquisaWebFilter)
+		authRoutes.GET("/search", controllers.PesquisaWebFilter)
+		authRoutes.PUT("/edit/:id", controllers.EditarWebFilter)
+		authRoutes.DELETE("/delete/:id", controllers.DeleteWebFilter)
+	}
 
     r.Run(":8080")
 }

@@ -1,0 +1,185 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Gerencia e lida com as escritas para o serviço Squid - WebFilter",
+        "title": "WebFilter - API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "172.23.58.10:8080",
+    "basePath": "/webfilter",
+    "paths": {
+        "/webfilter/apply": {
+            "get": {
+                "description": "Aplica as configurações do WebFilters - Squid",
+                "summary": "Apply - WebFilters",
+                "operationId": "applyFilters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Valor da pesquisa",
+                        "name": "searchValue",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/webfilter/delete/:id": {
+            "delete": {
+                "description": "Deleta os WebFilters - Squid",
+                "summary": "Delete - WebFilters",
+                "operationId": "deleteFilters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id WebFilter",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/webfilter/edit/:id": {
+            "put": {
+                "description": "Edita os WebFilters - Squid",
+                "summary": "Edit - WebFilters",
+                "operationId": "editFilters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id WebFilter",
+                        "name": "id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/webfilter/new": {
+            "post": {
+                "description": "Cria filtro no WebFilter - Squid",
+                "summary": "new filter - WebFilter",
+                "operationId": "newFilter",
+                "parameters": [
+                    {
+                        "description": "Especificação do Filtro",
+                        "name": "Requisição",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.WebFilterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/webfilter/search/:searchValue": {
+            "get": {
+                "description": "Busca os WebFilters - Squid",
+                "summary": "Get - WebFilters",
+                "operationId": "getFilters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Valor da pesquisa",
+                        "name": "searchValue",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/webfilter/status": {
+            "get": {
+                "description": "Pega o status do Squid",
+                "summary": "Get status SQUID",
+                "operationId": "getStatusSquid",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/webfilter.ResponseSquid"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "webfilter.Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "webfilter.ResponseSquid": {
+            "type": "object",
+            "properties": {
+                "class": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "webfilter.WebFilterRequest": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

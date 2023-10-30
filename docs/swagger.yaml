@@ -1,0 +1,121 @@
+basePath: /webfilter
+definitions:
+  webfilter.Response:
+    properties:
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+  webfilter.ResponseSquid:
+    properties:
+      class:
+        type: string
+      text:
+        type: string
+    type: object
+  webfilter.WebFilterRequest:
+    properties:
+      nome:
+        type: string
+      url:
+        type: string
+    type: object
+host: 172.23.58.10:8080
+info:
+  contact: {}
+  description: Gerencia e lida com as escritas para o serviço Squid - WebFilter
+  title: WebFilter - API
+  version: "1.0"
+paths:
+  /webfilter/apply:
+    get:
+      description: Aplica as configurações do WebFilters - Squid
+      operationId: applyFilters
+      parameters:
+      - description: Valor da pesquisa
+        in: path
+        name: searchValue
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.Response'
+      summary: Apply - WebFilters
+  /webfilter/delete/:id:
+    delete:
+      description: Deleta os WebFilters - Squid
+      operationId: deleteFilters
+      parameters:
+      - description: id WebFilter
+        in: path
+        name: id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.Response'
+      summary: Delete - WebFilters
+  /webfilter/edit/:id:
+    put:
+      description: Edita os WebFilters - Squid
+      operationId: editFilters
+      parameters:
+      - description: id WebFilter
+        in: path
+        name: id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.Response'
+      summary: Edit - WebFilters
+  /webfilter/new:
+    post:
+      description: Cria filtro no WebFilter - Squid
+      operationId: newFilter
+      parameters:
+      - description: Especificação do Filtro
+        in: body
+        name: Requisição
+        required: true
+        schema:
+          $ref: '#/definitions/webfilter.WebFilterRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.Response'
+      summary: new filter - WebFilter
+  /webfilter/search/:searchValue:
+    get:
+      description: Busca os WebFilters - Squid
+      operationId: getFilters
+      parameters:
+      - description: Valor da pesquisa
+        in: path
+        name: searchValue
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.Response'
+      summary: Get - WebFilters
+  /webfilter/status:
+    get:
+      description: Pega o status do Squid
+      operationId: getStatusSquid
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/webfilter.ResponseSquid'
+      summary: Get status SQUID
+schemes:
+- http
+- https
+swagger: "2.0"
